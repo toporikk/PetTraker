@@ -33,4 +33,20 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Pets}/{action=Index}/{id?}");
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<PetTracker.Data.AppDbContext>();
+        // Эта команда создаст файл базы и все таблицы, если их нет
+        context.Database.EnsureCreated(); 
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Ошибка при создании базы данных.");
+    }
+}
+
 app.Run();
