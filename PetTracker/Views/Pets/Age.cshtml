@@ -1,0 +1,25 @@
+﻿@model PetTracker.Models.Pet
+
+@{
+    ViewData["Title"] = "Возраст питомца";
+}
+
+<h1>🐕 Информация о питомце</h1>
+
+<div class="card" style="width: 400px;">
+    <div class="card-body">
+        <h3 class="card-title">@Model.Name</h3>
+        <p class="card-text">
+            <strong>Тип:</strong> @Model.Type<br />
+            <strong>Дата рождения:</strong> @Model.Birthday.ToString("yyyy-MM-dd")<br />
+            <strong>Возраст:</strong>
+            @{
+                var today = DateTime.Today;
+                var age = today.Year - Model.Birthday.Year;
+                if (Model.Birthday.Date > today.AddYears(-age)) age--;
+                <span>@age @(age % 10 == 1 && age % 100 != 11 ? "год" : (age % 10 >= 2 && age % 10 <= 4 && (age % 100 < 10 || age % 100 >= 20) ? "года" : "лет"))</span>
+            }
+        </p>
+        <a href="/Pets" class="btn btn-primary">🔙 Назад к списку</a>
+    </div>
+</div>

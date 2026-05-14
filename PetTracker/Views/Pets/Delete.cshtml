@@ -1,0 +1,16 @@
+﻿@model PetTracker.Models.Pet
+
+@{
+    ViewData["Title"] = "Удалить питомца";
+}
+
+<h1>⚠️ Удалить питомца</h1>
+
+<p>Вы уверены, что хотите удалить питомца <strong>@Model.Name</strong>?</p>
+
+<form method="post" action="/Pets/Delete">
+    <input type="hidden" name="Id" value="@Model.Id" />
+
+    <button type="submit" style="background-color: red; color: white;">🗑️ Да, удалить</button>
+    <a href="/Pets">❌ Нет, отмена</a>
+</form>

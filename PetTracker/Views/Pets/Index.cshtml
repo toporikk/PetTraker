@@ -1,0 +1,52 @@
+﻿@model List<PetTracker.Models.Pet>
+
+<h1>🐾 Мои питомцы</h1>
+
+@if (TempData["Message"] != null)
+{
+    <div style="color: green; background-color: lightgreen; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+        @TempData["Message"]
+    </div>
+}
+
+<p>
+    <a href="/Pets/Add">➕ Добавить питомца</a>
+</p>
+
+<p>
+    <button onclick="location.href='/Pets/ByType?type=Кот'">🐱 Только коты</button>
+    <button onclick="location.href='/Pets/ByType?type=Собака'">🐶 Только собаки</button>
+    <button onclick="location.href='/Pets'">📋 Все питомцы</button>
+</p>
+
+<table border="1" cellpadding="10">
+    <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Тип</th>
+            <th>Дата рождения</th>
+            <th>Возраст</th>
+            <th>Заметки</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        //Полученный список подставляется в HTML-шаблон
+        //Генерируется полная HTML-страница
+        @foreach (var pet in Model)
+        {
+            <tr>
+                <td>@pet.Name</td>
+                <td>@pet.Type</td>
+                <td>@pet.Birthday.ToString("yyyy-MM-dd")</td>
+                <td>@pet.Age лет</td>
+                <td>@(string.IsNullOrEmpty(pet.Notes) ? "—" : pet.Notes)</td>
+                <td>
+                    <a href="/Pets/Edit/@pet.Id">✏️ Редактировать</a> |
+                    <a href="/Pets/Delete/@pet.Id" style="color: red;">🗑️ Удалить</a> |
+                    <a href="/Pets/Age/@pet.Id">📊 Возраст</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

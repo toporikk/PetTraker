@@ -1,0 +1,41 @@
+﻿@model PetTracker.Models.Pet
+
+@{
+    ViewData["Title"] = "Редактировать питомца";
+}
+
+Все поля name="..." соответствуют свойствам класса Pet.
+
+
+<h1>✏️ Редактировать питомца</h1>
+
+<form method="post" action="/Pets/Edit">
+    <input type="hidden" name="Id" value="@Model.Id" />
+
+    <div>
+        <label>Кличка:</label><br />
+        <input type="text" name="Name" value="@Model.Name" required />
+    </div>
+    <br />
+
+    <div>
+        <label>Тип животного:</label><br />
+        <input type="text" name="Type" value="@Model.Type" required />
+    </div>
+    <br />
+
+    <div>
+        <label>Дата рождения:</label><br />
+        <input type="date" name="Birthday" value="@Model.Birthday.ToString("yyyy-MM-dd")" required />
+    </div>
+    <br />
+
+    <div>
+        <label>Заметки:</label><br />
+        <textarea name="Notes" rows="3" cols="40">@Model.Notes</textarea>
+    </div>
+    <br />
+
+    <button type="submit">💾 Сохранить</button>
+    <a href="/Pets">🔙 Отмена</a>
+</form>

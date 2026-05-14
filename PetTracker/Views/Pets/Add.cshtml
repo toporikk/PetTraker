@@ -1,0 +1,40 @@
+﻿@model PetTracker.ViewModels.PetViewModel
+
+@{
+    ViewData["Title"] = "Добавить питомца";
+}
+
+<h1>➕ Добавить нового питомца</h1>
+
+@if (ViewBag.Message != null)
+{
+    <div style="color: green; background-color: lightgreen; padding: 10px; border-radius: 5px;">
+        @ViewBag.Message
+    </div>
+}
+
+<form method="post" action="/Pets/Add">
+    <div>
+        <label>Кличка питомца:</label><br />
+        <input type="text" name="Name" value="@Model?.Name" required />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <br />
+
+    <div>
+        <label>Тип животного (Кот, Собака и т.д.):</label><br />
+        <input type="text" name="Type" value="@Model?.Type" required />
+        <span asp-validation-for="Type" class="text-danger"></span>
+    </div>
+    <br />
+
+    <div>
+        <label>Дата рождения:</label><br />
+        <input type="date" name="Birthday" value="@(Model?.Birthday.ToString("yyyy-MM-dd"))" required />
+        <span asp-validation-for="Birthday" class="text-danger"></span>
+    </div>
+    <br />
+
+    <button type="submit">✅ Добавить</button>
+    <a href="/Pets">🔙 Назад</a>
+</form>
